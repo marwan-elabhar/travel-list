@@ -15,11 +15,15 @@ export default function App() {
     setItems(items => items.map(item => item.id === id ? {...item, packed: !item.packed} : item))
   }
 
+  function handleClearItems() {
+    setItems([])
+  }
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItems={handleAddItems} />
-      <PackingList items={items} onDeleteItem={handleDeleteItem} onToggleItem={handleToggleItem} />
+      <PackingList items={items} onDeleteItem={handleDeleteItem} onToggleItem={handleToggleItem} onClearItems={handleClearItems} />
       <Stats  items={items}/>
     </div>
   )
@@ -65,7 +69,7 @@ function Form({ onAddItems }) {
 
 }
 
-function PackingList({ items, onDeleteItem, onToggleItem }) {
+function PackingList({ items, onDeleteItem, onToggleItem , onClearItems}) {
 
   const [sortBy, setSortBy] = useState('input')
 
@@ -89,6 +93,7 @@ function PackingList({ items, onDeleteItem, onToggleItem }) {
           <option value='description'>Sort by description</option>
           <option value='packed'>Sort by packed status</option>
         </select>
+        <button onClick={onClearItems}>Clear list</button>
       </div>
     </div>
   )
